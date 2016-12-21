@@ -115,193 +115,67 @@ public class Inquiry {
 	public void setMaxSpeed(double maxSpeed) {
 		this.maxSpeed = maxSpeed;
 	}
-
-	private int calculatePoints() {
-		if (maxSpeed==30) {
-			if (speed>=31 && speed<=50) 
-				return 0;
-			else if (speed>=51 && speed<=60)
-				return 2;
-			else if (speed>=61 && speed<=70)
-				return 4;
-			else if (speed>=71)
-				return 6;
-		} else if (maxSpeed==40) {
-			if (speed>=41 && speed<=60) 
-				return 0;
-			else if (speed>=61 && speed<=70)
-				return 2;
-			else if (speed>=71 && speed<=80)
-				return 4;
-			else if (speed>=81)
-				return 6;
-		} else if (maxSpeed==60) {
-			if (speed>=61 && speed<=90) 
-				return 0;
-			else if (speed>=91 && speed<=110)
-				return 2;
-			else if (speed>=111 && speed<=120)
-				return 4;
-			else if (speed>=121)
-				return 6;
-		} else if (maxSpeed==70) {
-			if (speed>=71 && speed<=100) 
-				return 0;
-			else if (speed>=101 && speed<=120)
-				return 2;
-			else if (speed>=121 && speed<=130)
-				return 4;
-			else if (speed>=131)
-				return 6;
-		} else if (maxSpeed==80) {
-			if (speed>=81 && speed<=110) 
-				return 0;
-			else if (speed>=111 && speed<=130)
-				return 2;
-			else if (speed>=131 && speed<=140)
-				return 4;
-			else if (speed>=141)
-				return 6;
-		} else if (maxSpeed==90) {
-			if (speed>=91 && speed<=120) 
-				return 0;
-			else if (speed>=121 && speed<=140)
-				return 2;
-			else if (speed>=141 && speed<=150)
-				return 4;
-			else if (speed>=151)
-				return 6;
-		} else if (maxSpeed==100) {
-			if (speed>=101 && speed<=130) 
-				return 0;
-			else if (speed>=131 && speed<=150)
-				return 2;
-			else if (speed>=151 && speed<=160)
-				return 4;
-			else if (speed>=161)
-				return 6;
-		} else if (maxSpeed==110) {
-			if (speed>=111 && speed<=140) 
-				return 0;
-			else if (speed>=141 && speed<=160)
-				return 2;
-			else if (speed>=161 && speed<=170)
-				return 4;
-			else if (speed>=171)
-				return 6;
-		} else if (maxSpeed==120) {
-			if (speed>=121 && speed<=150) 
-				return 0;
-			else if (speed>=151 && speed<=170)
-				return 2;
-			else if (speed>=171 && speed<=180)
-				return 4;
-			else if (speed>=181)
-				return 6;
+	private int calcular_menores60 (String modo) {
+		int velocidadeslimite [] = {31, 50, 51, 60, 61, 70, 71, 80};
+		int incr;
+		switch((int)maxSpeed) {
+			case 30: incr = 0;  break;
+			case 40: incr = 10; break;
+			case 50: incr = 20; break;
+			default: return 0;
 		}
-		return 0;
+		return tratarvelocidad (velocidadeslimite, incr,  modo);
 	}
-
-	private int calculateAmount() {
-		if (maxSpeed==30) {
-			if (speed>=31 && speed<=50) 
-				return 100;
-			else if (speed>=51 && speed<=60)
-				return 300;
-			else if (speed>=61 && speed<=70)
-				return 400;
-			else if (speed>=71 && speed<=80)
-				return 500;
-			else
-				return 6;
-		} else if (maxSpeed==40) {
-			if (speed>=41 && speed<=60) 
-				return 100;
-			else if (speed>=61 && speed<=70)
-				return 300;
-			else if (speed>=71 && speed<=80)
-				return 400;
-			else if (speed>=81 && speed<=90)
-				return 500;
-			else
-				return 600;
-		} else if (maxSpeed==60) {
-			if (speed>=61 && speed<=90) 
-				return 100;
-			else if (speed>=91 && speed<=110)
-				return 300;
-			else if (speed>=111 && speed<=120)
-				return 400;
-			else if (speed>=121 && speed<=130)
-				return 500;
-			else 
-				return 600;
-		} else if (maxSpeed==70) {
-			if (speed>=71 && speed<=100) 
-				return 100;
-			else if (speed>=101 && speed<=120)
-				return 300;
-			else if (speed>=121 && speed<=130)
-				return 400;
-			else if (speed>=131 && speed<=140)
-				return 500;
-			else
-				return 600;
-		} else if (maxSpeed==80) {
-			if (speed>=81 && speed<=110) 
-				return 100;
-			else if (speed>=111 && speed<=130)
-				return 300;
-			else if (speed>=131 && speed<=140)
-				return 400;
-			else if (speed>=141 && speed<=150)
-				return 500;
-			else
-				return 600;
-		} else if (maxSpeed==90) {
-			if (speed>=91 && speed<=120) 
-				return 100;
-			else if (speed>=121 && speed<=140)
-				return 300;
-			else if (speed>=141 && speed<=150)
-				return 400;
-			else if (speed>=151 && speed<=160)
-				return 500;
-			else
-				return 600;
-		} else if (maxSpeed==100) {
-			if (speed>=101 && speed<=130) 
-				return 100;
-			else if (speed>=131 && speed<=150)
-				return 300;
-			else if (speed>=151 && speed<=160)
-				return 400;
-			else if (speed>=161 && speed<=170)
-				return 500;
-			else
-				return 600;
-		} else if (maxSpeed==110) {
-			if (speed>=111 && speed<=140) 
-				return 100;
-			else if (speed>=141 && speed<=160)
-				return 300;
-			else if (speed>=161 && speed<=170)
-				return 400;
-			else if (speed>=171 && speed<=180)
-				return 500;
-			else
-				return 600;
-		} else if (maxSpeed==120) {
-			if (speed>=121 && speed<=150) 
-				return 100;
-			else if (speed>=151 && speed<=170)
-				return 300;
-			else if (speed>=171 && speed<=180)
-				return 400;
-			else if (speed>=181 && speed<=190)
-				return 500;
-			else return 600;
+	private int calcular_mayores60 (String modo) {
+		int velocidadeslimite [] = {61, 90, 91, 110, 111, 120, 121, 130};
+		int incr;
+		switch((int)maxSpeed) {
+			case 60:  incr = 0;  break;
+ 			case 70:  incr = 10; break;
+			case 80:  incr = 20; break;
+			case 90:  incr = 30; break;
+			case 100: incr = 40; break;
+			case 110: incr = 50; break;
+			case 120: incr = 60; break;
+			default:  return 0;
 		}
-		return 0;
+		return tratarvelocidad (velocidadeslimite, incr, modo);
+	}
+	private int tratarvelocidad (int velocidades[], int incremento, String modo) {
+		int points, amount;
+		for (int i= 0; i < velocidades.length; i++)
+			velocidades [i] += incremento;
+		if (speed>=velocidades[0] && speed<=velocidades[1]) {
+			points = 0; amount = 100;
+		}
+		else if (speed>=velocidades[2] && speed<=velocidades[3]) {
+			points = 2; amount = 300;
+		}
+		else if (speed>=velocidades[4] && speed<=velocidades[5]) {
+			points = 4; amount = 400;
+		}
+		else if (speed>=velocidades[6] && speed <= velocidades[7]) {
+			points = 6; amount = 500;
+		}
+		else {
+			points = 6; amount = 600;
+		}
+		
+		if (modo.equals("points"))
+			return points;
+		else
+			return amount;
+	}
+	private int calculatePoints() {
+		if (maxSpeed < 60)
+			return calcular_menores60("points");
+		else
+			return calcular_mayores60("points");
+	}
+	private int calculateAmount() {
+		if (maxSpeed < 60)
+			return calcular_menores60("amount");
+		else
+			return calcular_mayores60("amount");
 	}
 }

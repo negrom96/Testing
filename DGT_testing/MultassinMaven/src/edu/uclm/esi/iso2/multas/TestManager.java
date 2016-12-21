@@ -1,14 +1,18 @@
 package edu.uclm.esi.iso2.multas;
-import static org.junit.Assert.*;
-import org.junit.Test;
 
+import static org.junit.Assert.*;
+import java.sql.Date;
+import org.junit.Test;
 import edu.uclm.esi.iso2.multas.dao.GeneralDao;
+import edu.uclm.esi.iso2.multas.domain.Driver;
 import edu.uclm.esi.iso2.multas.domain.Inquiry;
 import edu.uclm.esi.iso2.multas.domain.Manager;
+import edu.uclm.esi.iso2.multas.domain.Owner;
 import edu.uclm.esi.iso2.multas.domain.Sanction;
+import edu.uclm.esi.iso2.multas.domain.SanctionHolder;
+import edu.uclm.esi.iso2.multas.domain.Vehicle;
 
 public class TestManager {
-
 	@Test
 	public void test140_120() {
 		Manager m = Manager.get();
@@ -1668,5 +1672,104 @@ public class TestManager {
 		assertTrue (multa.getAmount() == 600);
 		assertTrue (multa.getPoints() == 6);
 	}
+	
+	@Test
+	public void testSanctionHolder(){
+		SanctionHolder s = new SanctionHolder("07654123", "Pedro", "Por su Casa", "Narnia al fin del mundo") {};
+		SanctionHolder s1 = new SanctionHolder("07654123", "Pedro", "Por su Casa", "Narnia al fin del mundo") {};
+		assertTrue(s.getName().equals("Pedro"));
+		assertTrue(s.getLastName().equals("Por su Casa"));
+		assertTrue(s.getFullAddress().equals("Narnia al fin del mundo"));
+		assertTrue(s.getDni().equals("07654123"));
+		assertTrue(!s.equals(s1));
+		assertNotNull(s);
+		assertFalse(s.hashCode()==0);
+		
+	}
+	
+	@Test
+	public void testVehicle(){
+		Vehicle v = new Vehicle("1996ZZZ");
+		Vehicle v2 = new Vehicle("1996AAA");
+		assertTrue(v.getLicense().equals("1996ZZZ"));
+		v.setLicense("0001");
+		assertTrue(v.getLicense().equals("0001"));
+		v.setOwner(new Owner());
+		assertTrue(!v.equals(v2));
+		assertFalse(v.hashCode() == 0);
+		
+	}
+	
+	@Test 
+	public void testOwner(){
+		Owner o = new Owner("00000001", "Miguel", "Negro", "Esi");
+		assertTrue(o.getDni().equals("00000001"));
+		assertTrue(o.getFullAddress().equals("Esi"));
+		assertTrue(o.getName().equals("Miguel"));
+		assertTrue(o.getLastName().equals("Negro"));
+		o.setName("Pablo");
+		assertTrue(o.getName().equals("Pablo"));
+		assertNotNull(o);
+	}
+	
+	@Test
+	public void testDriver(){
+		Driver d = new Driver("0000001", "Paquito", "Chocolatero", "esi");
+		assertNotNull(d);
+		assertTrue(d.getPoints()==12);
+		d.setPoints(8);
+		assertTrue(d.getPoints() == 8);
+	}
+	@Test
+	public void testSanction() {
+		Sanction multa = new Sanction ();
+		Sanction multa2 = new Sanction ();
+		Date aux = new Date(0);
+		multa.setDateOfPayment(aux);
+		assertTrue(multa.getDateOfPayment().equals(aux));
+		multa.setDateOfReception(aux);
+		assertTrue(multa.getDateOfReception().equals(aux));
+		assertNull(multa.getSanctionHolder());
+		assertTrue(multa.equals(multa2));
+		assertFalse(multa.hashCode() == 0);
+	}
+	@Test
+	public void testInquiry() {
+		Date aux = new Date(0);
+		Inquiry i = new Inquiry ("0001", 80, "La Ronda", 30);
+		i.setId(2);
+		i.setDateOfIssue(aux);
+		i.setLocation("Ronda del Parque");
+		i.setMaxSpeed(100);
+		i.setSpeed(120);
+		assertTrue(i.getLocation().equals("Ronda del Parque"));
+		assertTrue(i.getId() == 2);
+		assertTrue(i.getDateOfIssue().equals(aux));
+		assertTrue(i.getMaxSpeed() == 100);
+		assertTrue(i.getSpeed() == 120);
+	}
+	@Test
+	public void testDefaultcase_menor60() {
+		Manager m = Manager.get();
+		int idExpediente = m.openInquiry("0001", 81, "La Ronda", 45);
+		GeneralDao <Inquiry>dao = new GeneralDao<>();
+        Inquiry i=dao.findById(Inquiry.class, idExpediente);
+        assertNotNull(i);
+		Sanction multa = m.identifyDriver(idExpediente, "5000002");
+		m.pay(multa.getId());
+		assertTrue (multa.getAmount() == 0);
+		assertTrue (multa.getPoints() == 0);
+	}
+	@Test
+	public void testDefaultcase_mayor60() {
+		Manager m = Manager.get();
+		int idExpediente = m.openInquiry("0001", 134, "La Ronda", 92);
+		GeneralDao <Inquiry>dao = new GeneralDao<>();
+        Inquiry i=dao.findById(Inquiry.class, idExpediente);
+        assertNotNull(i);
+		Sanction multa = m.identifyDriver(idExpediente, "5000002");
+		m.pay(multa.getId());
+		assertTrue (multa.getAmount() == 0);
+		assertTrue (multa.getPoints() == 0);
+	}
 }
-
