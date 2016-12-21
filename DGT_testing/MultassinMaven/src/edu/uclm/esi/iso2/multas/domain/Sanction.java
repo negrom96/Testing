@@ -66,11 +66,6 @@ public class Sanction {
 	public int getId() {
 		return id;
 	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-	
 	public void setSanctionHolder(SanctionHolder sanctionHolder) {
 		this.sanctionHolder = sanctionHolder;
 	}

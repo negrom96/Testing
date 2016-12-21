@@ -65,18 +65,4 @@ public class Manager {
 		sanction.pay();
 		dao.update(sanction);
 	}
-	
-	/**
-	 * Executed from the user interface when a vehicle changes its owner
-	 * @param license The license number of the vehicle
-	 * @param newDni The dni of the new owner
-	 */
-	public void changeOwner(String license, String newDni) {
-		VehicleDao daoVehicle=new VehicleDao();
-		Vehicle vehicle=daoVehicle.findByLicense(license);
-		OwnerDao daoOwner=new OwnerDao();
-		Owner owner=daoOwner.findByDni(newDni);
-		vehicle.setOwner(owner);
-		daoVehicle.update(vehicle);
-	}
 }

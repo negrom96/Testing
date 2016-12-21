@@ -91,15 +91,6 @@ public class Inquiry {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
-	public Owner getOwner() {
-		return owner;
-	}
-
-	public void setOwner(Owner owner) {
-		this.owner = owner;
-	}
-
 	public double getSpeed() {
 		return speed;
 	}

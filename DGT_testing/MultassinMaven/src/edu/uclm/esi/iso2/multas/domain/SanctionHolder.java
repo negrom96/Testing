@@ -40,11 +40,6 @@ public abstract class SanctionHolder {
 	public int getId() {
 		return id;
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getDni() {
 		return dni;
 	}
