@@ -107,7 +107,7 @@ public class Inquiry {
 		this.maxSpeed = maxSpeed;
 	}
 	private int calcular_menores60 (String modo) {
-		int velocidadeslimite [] = {31, 50, 51, 60, 61, 70, 71, 80};
+		int velocidadeslimite30 [] = {31, 50, 51, 60, 61, 70, 71, 80};
 		int incr;
 		switch((int)maxSpeed) {
 			case 30: incr = 0;  break;
@@ -115,10 +115,10 @@ public class Inquiry {
 			case 50: incr = 20; break;
 			default: return 0;
 		}
-		return tratarvelocidad (velocidadeslimite, incr,  modo);
+		return tratarvelocidad (velocidadeslimite30, incr,  modo);
 	}
 	private int calcular_mayores60 (String modo) {
-		int velocidadeslimite [] = {61, 90, 91, 110, 111, 120, 121, 130};
+		int velocidadeslimite60 [] = {61, 90, 91, 110, 111, 120, 121, 130};
 		int incr;
 		switch((int)maxSpeed) {
 			case 60:  incr = 0;  break;
@@ -130,22 +130,22 @@ public class Inquiry {
 			case 120: incr = 60; break;
 			default:  return 0;
 		}
-		return tratarvelocidad (velocidadeslimite, incr, modo);
+		return tratarvelocidad (velocidadeslimite60, incr, modo);
 	}
-	private int tratarvelocidad (int velocidades[], int incremento, String modo) {
+	private int tratarvelocidad (int velocidadeslimite[], int incremento, String modo) {
 		int points, amount;
-		for (int i= 0; i < velocidades.length; i++)
-			velocidades [i] += incremento;
-		if (speed>=velocidades[0] && speed<=velocidades[1]) {
+		for (int i= 0; i < velocidadeslimite.length; i++)
+			velocidadeslimite [i] += incremento;
+		if (speed>=velocidadeslimite[0] && speed<=velocidadeslimite[1]) {
 			points = 0; amount = 100;
 		}
-		else if (speed>=velocidades[2] && speed<=velocidades[3]) {
+		else if (speed>=velocidadeslimite[2] && speed<=velocidadeslimite[3]) {
 			points = 2; amount = 300;
 		}
-		else if (speed>=velocidades[4] && speed<=velocidades[5]) {
+		else if (speed>=velocidadeslimite[4] && speed<=velocidadeslimite[5]) {
 			points = 4; amount = 400;
 		}
-		else if (speed>=velocidades[6] && speed <= velocidades[7]) {
+		else if (speed>=velocidadeslimite[6] && speed <= velocidadeslimite[7]) {
 			points = 6; amount = 500;
 		}
 		else {
