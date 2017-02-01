@@ -1,7 +1,6 @@
 package edu.uclm.esi.iso2.multas.domain;
 
 import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
